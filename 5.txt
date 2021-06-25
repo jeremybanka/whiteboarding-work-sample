@@ -1,0 +1,32 @@
+// Array Sorting
+
+// Write an algorithm that sorts an array
+// without using the sort() method.
+
+const compare = (a:number, b:number) => a > b
+const compareHex = (a:string, b:string) => parseInt(a, 16) > parseInt(b, 16)
+
+const sort = (compare, numbers:number[], sortedNumbers = []): number[] | CallableFunction => // [6,5,1,53,1]
+  numbers[0]
+    ? () => {
+      const newSortedNumbers = [...sortedNumbers] // []
+      const numberToSort = numbers[0] // 6
+      const sortedIndexForElement = sortedNumbers.findIndex( // -1
+        number => compare(number, numberToSort)
+      )
+      if(sortedIndexForElement === -1) { //true
+        newSortedNumbers.push(numberToSort) // [6]
+      } else {
+        newSortedNumbers.splice(sortedIndexForElement, 0, numberToSort)
+      }
+      return sort(
+        compare,
+        numbers.slice(1), // [5,1,53,1]
+        newSortedNumbers // [6] // [5,6] ///// [1,5,6,53]
+      )
+    }
+    : sortedNumbers
+
+const sortSafe = trampoline(sort)
+
+sort(compareHex, ['a0', 'b0', '12', 'c'])

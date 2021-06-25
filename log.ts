@@ -3,6 +3,7 @@
 const solution1 = require(`./1.js`)
 const solution2 = require(`./2.js`)
 const solution3 = require(`./3.js`)
+const solution4 = require(`./4.js`)
 const solution5 = require(`./5.js`)
 
 const run = (chosenFile: number, input: string):void => {
@@ -10,6 +11,7 @@ const run = (chosenFile: number, input: string):void => {
     case 1: return solution1(input)
     case 2: return solution2(input)
     case 3: return solution3(input)
+    case 4: return solution4(input)
     case 5: return solution5(input)
     default: return console.log(
       `invalid file name`,

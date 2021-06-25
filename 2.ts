@@ -7,9 +7,14 @@
 
 type junk = (string | number)[]
 
-// 😈 hehe
-const dedupeUsingSet =
-(elements: junk): junk => Array.from(new Set(elements))
+// 😈 🏁 (an even better solution is not to use an array at all)
+const dedupeUsingSet = (elements: junk): junk =>
+  Array.from(new Set(elements))
+
+const dedupeUsingFilter = (elements: junk): junk =>
+  elements.filter(
+    (element, idx) => elements.indexOf(element) === idx
+  )
 
 const dedupeIterative = (elements: junk): junk => {
   const seenSoFar = new Set()
@@ -27,13 +32,10 @@ const dedupeRecursive = (
   elements: junk,
   seenSoFar = new Set(),
   dedupedElements: junk = []
-): junk => {
-  console.log(elements)
-
-  return elements[0]
+): junk =>
+  elements[0]
     ? (() => {
       const element = elements[0]
-      console.log(element)
       const newElements = elements.slice(1)
       const elementIsNew = !seenSoFar.has(element)
       return elementIsNew
@@ -49,14 +51,15 @@ const dedupeRecursive = (
         )
     })()
     : dedupedElements
-}
 
 module.exports = (input: string): void => {
   const inputAsArray = (): junk => input.split(`,`)
   const outputUsingSet = dedupeUsingSet(inputAsArray())
+  const outputUsingFilter = dedupeUsingFilter(inputAsArray())
   const outputIterative = dedupeIterative(inputAsArray())
   const outputRecursive = dedupeRecursive(inputAsArray())
   console.log(`outputUsingSet:`, outputUsingSet)
+  console.log(`outputUsingFilter:`, outputUsingFilter)
   console.log(`outputIterative:`, outputIterative)
   console.log(`outputRecursive:`, outputRecursive)
 }
